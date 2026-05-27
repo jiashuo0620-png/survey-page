@@ -7,71 +7,131 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --primary: #4f46e5; --primary-hover: #4338ca; --bg: #f5f5f5;
-  --card: #fff; --text: #1f2937; --text-secondary: #6b7280;
-  --border: #e5e7eb; --radius: 12px;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --bg: #f5f5f5;
+  --card: #fff;
+  --text: #1f2937;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --radius: 12px;
   --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-  --danger: #ef4444; --danger-hover: #dc2626;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 60px; }
+
 .header { text-align: center; padding: 40px 20px 32px; }
 .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
 .header p { color: var(--text-secondary); font-size: 16px; }
+
 .card {
-  background: var(--card); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 28px 24px; margin-bottom: 16px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 24px;
+  margin-bottom: 16px;
 }
+
 .q-title {
-  font-size: 16px; font-weight: 600; margin-bottom: 14px;
-  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
 }
-.q-title .required-star { color: var(--danger); font-weight: 700; }
+.q-title .required-star { color: #ef4444; font-weight: 700; }
 .q-number {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px; background: var(--primary); color: #fff;
-  border-radius: 50%; font-size: 13px; font-weight: 600; flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px; height: 26px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
 }
+
 .options { display: flex; flex-direction: column; gap: 10px; }
 .option {
-  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
-  border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer;
-  transition: border-color .15s, background .15s; font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  font-size: 15px;
 }
 .option:hover { border-color: var(--primary); background: #f8f7ff; }
 .option input[type="radio"], .option input[type="checkbox"] {
   width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0; cursor: pointer;
 }
 .option.checked { border-color: var(--primary); background: #eef2ff; }
+
 .text-input, .textarea-input, .select-input {
-  width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
-  border-radius: 8px; font-size: 15px; font-family: inherit; color: var(--text);
-  transition: border-color .15s; background: #fff;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  transition: border-color .15s;
+  background: #fff;
 }
 .text-input:focus, .textarea-input:focus, .select-input:focus {
-  outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79,70,229,.1);
 }
 .textarea-input { resize: vertical; min-height: 100px; }
 .select-input {
-  appearance: none; padding-right: 36px; cursor: pointer;
+  appearance: none;
   background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
 }
+
 .rating { display: flex; gap: 8px; flex-wrap: wrap; }
 .rating-btn {
-  width: 44px; height: 44px; border: 1.5px solid var(--border);
-  border-radius: 8px; background: #fff; font-size: 16px; font-weight: 600;
-  cursor: pointer; transition: all .15s; display: flex; align-items: center;
-  justify-content: center; font-family: inherit;
+  width: 44px; height: 44px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
 }
 .rating-btn:hover { border-color: var(--primary); }
 .rating-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
 .btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: 8px; padding: 12px 28px; border: none; border-radius: 8px;
-  font-size: 16px; font-weight: 600; cursor: pointer; transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
   font-family: inherit;
 }
 .btn-primary { background: var(--primary); color: #fff; width: 100%; }
@@ -80,111 +140,47 @@ body {
 .btn-outline { background: #fff; color: var(--primary); border: 1.5px solid var(--primary); }
 .btn-outline:hover { background: #eef2ff; }
 .btn-outline:disabled { opacity: .5; cursor: not-allowed; background: #f9fafb; }
-.btn-danger { background: var(--danger); color: #fff; }
-.btn-danger:hover { background: var(--danger-hover); }
-.btn-sm { padding: 6px 14px; font-size: 13px; }
-.btn-xs { padding: 3px 8px; font-size: 11px; border-radius: 4px; }
 .btn-group { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
-.q-error { color: var(--danger); font-size: 13px; margin-top: 6px; display: none; }
+
+.q-error { color: #ef4444; font-size: 13px; margin-top: 6px; display: none; }
 .q-error.show { display: block; }
+
 .toast {
   position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-  background: #1f2937; color: #fff; padding: 12px 24px; border-radius: 8px;
-  font-size: 14px; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .3s;
+  background: #1f2937; color: #fff; padding: 12px 24px;
+  border-radius: 8px; font-size: 14px; z-index: 1000;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
 }
 .toast.show { opacity: 1; }
+
 .success-icon {
-  width: 72px; height: 72px; background: #ecfdf5; border-radius: 50%;
+  width: 72px; height: 72px;
+  background: #ecfdf5; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 20px; font-size: 36px; color: #059669;
 }
 
-/* Results */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .stat-card { background: #f9fafb; border-radius: 8px; padding: 16px; text-align: center; }
 .stat-card .stat-num { font-size: 28px; font-weight: 700; color: var(--primary); }
 .stat-card .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
 .result-q { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
 .result-q:last-child { border-bottom: none; }
 .result-q h4 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
 .result-bar-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
 .result-bar-label { width: 100px; font-size: 14px; color: var(--text-secondary); text-align: right; flex-shrink: 0; }
 .result-bar-track { flex: 1; height: 26px; background: #f3f4f6; border-radius: 6px; overflow: hidden; position: relative; }
-.result-bar-fill { height: 100%; background: var(--primary); border-radius: 6px; transition: width .3s; display: flex; align-items: center; padding-left: 8px; font-size: 12px; color: #fff; font-weight: 600; }
+.result-bar-fill { height: 100%; background: var(--primary); border-radius: 6px; transition: width .3s; display: flex; align-items: center; padding-left: 8px; font-size: 12px; color: #fff; font-weight: 600; min-width: fit-content; }
+
 .result-text-list { display: flex; flex-direction: column; gap: 8px; }
 .result-text-item { background: #f9fafb; padding: 10px 14px; border-radius: 6px; font-size: 14px; border-left: 3px solid var(--primary); white-space: pre-wrap; word-break: break-word; }
+
 .admin-toggle { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px dashed var(--border); }
-.admin-toggle a { color: var(--text-secondary); font-size: 13px; text-decoration: none; cursor: pointer; margin: 0 10px; }
+.admin-toggle a { color: var(--text-secondary); font-size: 13px; text-decoration: none; cursor: pointer; }
 .admin-toggle a:hover { color: var(--primary); }
 
-/* Admin panel */
-.admin-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 0; margin-bottom: 20px; border-bottom: 2px solid var(--primary);
-}
-.admin-header h2 { font-size: 20px; font-weight: 700; }
-.field-group { margin-bottom: 16px; }
-.field-group label {
-  display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary);
-  margin-bottom: 4px; text-transform: uppercase; letter-spacing: .5px;
-}
-.q-item {
-  border: 1.5px solid var(--border); border-radius: 8px;
-  padding: 14px 16px; margin-bottom: 10px; background: #fff;
-  transition: border-color .15s;
-}
-.q-item:hover { border-color: var(--primary); }
-.q-item-header {
-  display: flex; align-items: center; gap: 10px;
-}
-.q-item-header .q-badge {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  padding: 2px 8px; border-radius: 4px; background: #eef2ff;
-  color: var(--primary); flex-shrink: 0;
-}
-.q-item-header .q-text { flex: 1; font-size: 15px; font-weight: 500; }
-.q-item-header .q-actions { display: flex; gap: 4px; flex-shrink: 0; }
-.q-edit-panel {
-  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
-  display: flex; flex-direction: column; gap: 10px;
-}
-.q-edit-panel input, .q-edit-panel select {
-  padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 6px;
-  font-size: 14px; font-family: inherit;
-}
-.q-edit-panel input:focus, .q-edit-panel select:focus {
-  outline: none; border-color: var(--primary);
-}
-.opt-row { display: flex; gap: 6px; align-items: center; margin-bottom: 4px; }
-.opt-row input { flex: 1; }
-.opt-row button { flex-shrink: 0; }
-.inline-row { display: flex; gap: 10px; align-items: center; }
-.inline-row label { display: flex; align-items: center; gap: 4px; font-size: 14px; cursor: pointer; }
-.inline-row label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); }
-.add-q-card { border: 2px dashed var(--border); border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 10px; }
-.add-q-card select, .add-q-card button { margin: 6px; }
-
-/* Auth modal */
-.modal-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,.5); display: flex; align-items: center;
-  justify-content: center; z-index: 2000;
-}
-.modal-box {
-  background: #fff; border-radius: var(--radius); padding: 32px 28px;
-  width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,.2);
-  text-align: center;
-}
-.modal-box h3 { margin-bottom: 16px; font-size: 18px; }
-.modal-box input {
-  width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
-  border-radius: 8px; font-size: 15px; margin-bottom: 12px; text-align: center;
-}
-.modal-box input:focus { outline: none; border-color: var(--primary); }
-.modal-box .hint { font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
-.modal-box .modal-error { color: var(--danger); font-size: 13px; margin-bottom: 8px; }
-
-/* Responsive */
 @media (max-width: 600px) {
   .header h1 { font-size: 22px; }
   .card { padding: 20px 16px; }
@@ -193,137 +189,94 @@ body {
   .stat-card .stat-num { font-size: 22px; }
   .btn-group { flex-direction: column; }
   .btn-group .btn { width: 100%; }
-  .q-item-header { flex-wrap: wrap; }
 }
 </style>
 </head>
 <body>
+
 <div id="app"></div>
 
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   SHA-256 hash helper (pure JS, no crypto.subtle for file:// compatibility)
-   ═══════════════════════════════════════════════════════════ */
-function sha256(message) {
-  function rightRotate(v, n) { return (v >>> n) | (v << (32 - n)); }
-  const K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
-  let msg = [];
-  for (let i = 0; i < message.length; i++) { msg.push(message.charCodeAt(i) & 0xff); }
-  msg.push(0x80);
-  while ((msg.length + 8) % 64 !== 0) msg.push(0);
-  const bitLen = message.length * 8;
-  for (let i = 7; i >= 0; i--) msg.push((bitLen >>> (i * 8)) & 0xff);
-  let H = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
-  for (let i = 0; i < msg.length; i += 64) {
-    let W = new Array(64);
-    for (let t = 0; t < 16; t++) W[t] = (msg[i+t*4]<<24)|(msg[i+t*4+1]<<16)|(msg[i+t*4+2]<<8)|msg[i+t*4+3];
-    for (let t = 16; t < 64; t++) { let s0 = rightRotate(W[t-15],7)^rightRotate(W[t-15],18)^(W[t-15]>>>3); let s1 = rightRotate(W[t-2],17)^rightRotate(W[t-2],19)^(W[t-2]>>>10); W[t]=(W[t-16]+s0+W[t-7]+s1)|0; }
-    let [a,b,c,d,e,f,g,h] = H;
-    for (let t = 0; t < 64; t++) {
-      let S1 = rightRotate(e,6)^rightRotate(e,11)^rightRotate(e,25), ch=(e&f)^(~e&g), t1=(h+S1+ch+K[t]+W[t])|0;
-      let S0 = rightRotate(a,2)^rightRotate(a,13)^rightRotate(a,22), maj=(a&b)^(a&c)^(b&c), t2=(S0+maj)|0;
-      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0;
-    }
-    H=[H[0]+a,H[1]+b,H[2]+c,H[3]+d,H[4]+e,H[5]+f,H[6]+g,H[7]+h].map(v=>v|0);
-  }
-  return H.map(v=>v>>>0).map(v=>('0000000'+v.toString(16)).slice(-8)).join('');
-}
+// ╔══════════════════════════════════════════════════════════════╗
+// ║           问卷配置 — 修改这里即可编辑问卷                      ║
+// ║           改完保存，运行下方 """ 中的命令提交到 GitHub          ║
+// ╚══════════════════════════════════════════════════════════════╝
 
-/* ═══════════════════════════════════════════════════════════
-   STORAGE keys
-   ═══════════════════════════════════════════════════════════ */
-const K_RESPONSES = "survey_responses";
-const K_OVERRIDE = "survey_config_override";
-const K_ADMIN_PW = "survey_admin_pw";
-const K_ADMIN_PW_SET = "survey_admin_pw_set";
+const SURVEY_CONFIG = {
+  title: "用户满意度调查",
+  description: "感谢您使用我们的服务，请花几分钟填写以下问卷帮助我们改进",
 
-/* ═══════════════════════════════════════════════════════════
-   FALLBACK default config (used if config.json can't be fetched)
-   ═══════════════════════════════════════════════════════════ */
-const FALLBACK_CONFIG = {
-  title: "问卷调查",
-  description: "请填写以下问卷",
   questions: [
-    { id: "q1", type: "radio", title: "示例单选题", options: ["选项A", "选项B", "选项C"], required: true },
-    { id: "q2", type: "text", title: "示例填空题", placeholder: "请输入...", required: false }
+    {
+      id: "satisfaction",
+      type: "rating",
+      title: "您对我们的服务整体满意度如何？",
+      max: 5,
+      required: true
+    },
+    {
+      id: "usage_frequency",
+      type: "radio",
+      title: "您使用我们服务的频率是？",
+      options: ["每天", "每周几次", "每周一次", "偶尔使用", "这是第一次"],
+      required: true
+    },
+    {
+      id: "favorite_features",
+      type: "checkbox",
+      title: "您最喜欢哪些功能？（可多选）",
+      options: ["界面设计", "响应速度", "功能丰富度", "易用性", "客户支持", "价格合理"],
+      required: false
+    },
+    {
+      id: "referral",
+      type: "radio",
+      title: "您有多大可能向朋友推荐我们的服务？",
+      options: ["一定会推荐", "可能会推荐", "不确定", "可能不会", "一定不会"],
+      required: true
+    },
+    {
+      id: "age_range",
+      type: "select",
+      title: "您的年龄段是？",
+      options: ["18岁以下", "18-25岁", "26-35岁", "36-45岁", "46-55岁", "55岁以上"],
+      required: true
+    },
+    {
+      id: "improvement",
+      type: "textarea",
+      title: "您觉得我们最需要在哪些方面改进？",
+      placeholder: "请留下您的宝贵建议...",
+      required: false
+    }
   ]
 };
 
-/* ═══════════════════════════════════════════════════════════
-   TYPES definition
-   ═══════════════════════════════════════════════════════════ */
-const Q_TYPES = [
-  { value: "radio", label: "单选 (radio)" },
-  { value: "checkbox", label: "多选 (checkbox)" },
-  { value: "select", label: "下拉选择 (select)" },
-  { value: "text", label: "单行填空 (text)" },
-  { value: "textarea", label: "多行文本 (textarea)" },
-  { value: "rating", label: "评分 (rating)" }
-];
+// ══════════════════════════════════════════════════════════════
+//   提交命令（在终端中运行）:
+//
+//   cd C:\Users\周家硕\survey-project
+//   git add index.html && git commit -m "更新问卷" && git push
+//
+// ══════════════════════════════════════════════════════════════
 
-const TYPES_WITH_OPTIONS = ["radio", "checkbox", "select"];
+/* 以下是代码逻辑，无需修改 */
 
-/* ═══════════════════════════════════════════════════════════
-   Helpers
-   ═══════════════════════════════════════════════════════════ */
-function newQuestionId() { return "q" + Date.now().toString(36); }
-
-function blankQuestion(type) {
-  const q = { id: newQuestionId(), type, title: "", required: false };
-  if (TYPES_WITH_OPTIONS.includes(type)) q.options = [""];
-  if (type === "rating") q.max = 5;
-  if (type === "text" || type === "textarea") q.placeholder = "";
-  return q;
-}
-
-function readResponses() {
-  try { return JSON.parse(localStorage.getItem(K_RESPONSES) || "[]"); } catch (_) { return []; }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   React App
-   ═══════════════════════════════════════════════════════════ */
 const e = React.createElement;
-const { useState, useEffect, useCallback } = React;
+const STORAGE_KEY = "survey_responses";
 
 function App() {
-  const [config, setConfig] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [view, setView] = useState("form");
-  const [answers, setAnswers] = useState({});
-  const [errors, setErrors] = useState({});
-  const [toastMsg, setToastMsg] = useState("");
-  const [dataVersion, setDataVersion] = useState(0);
-
-  // Admin state
-  const [authChecked, setAuthChecked] = useState(false);
-  const [editingConfig, setEditingConfig] = useState(null);
-  const [expandedQ, setExpandedQ] = useState(null);
-  const [pwModal, setPwModal] = useState(""); // "" | "set" | "verify"
-  const [pwInput, setPwInput] = useState("");
-  const [pwError, setPwError] = useState("");
-
-  // Load config
-  useEffect(() => {
-    const override = localStorage.getItem(K_OVERRIDE);
-    if (override) {
-      try { setConfig(JSON.parse(override)); setLoading(false); return; } catch (_) {}
-    }
-    fetch("config.json")
-      .then(r => r.json())
-      .then(cfg => { setConfig(cfg); setLoading(false); })
-      .catch(() => { setConfig(FALLBACK_CONFIG); setLoading(false); });
-  }, []);
+  const [view, setView] = React.useState("form");
+  const [answers, setAnswers] = React.useState({});
+  const [errors, setErrors] = React.useState({});
+  const [toastMsg, setToastMsg] = React.useState("");
+  const [dataVersion, setDataVersion] = React.useState(0);
 
   const showToast = (msg) => { setToastMsg(msg); setTimeout(() => setToastMsg(""), 2500); };
 
-  const activeConfig = editingConfig || config;
-  const questions = activeConfig ? activeConfig.questions : [];
-
-  // ── Form helpers ──
   const updateAnswer = (qId, value) => {
     setAnswers(prev => ({ ...prev, [qId]: value }));
     setErrors(prev => ({ ...prev, [qId]: false }));
@@ -331,11 +284,12 @@ function App() {
 
   const validate = () => {
     const newErrors = {};
-    questions.forEach(q => {
+    SURVEY_CONFIG.questions.forEach(q => {
       if (!q.required) return;
       const val = answers[q.id];
-      if (val === undefined || val === null || val === "" || (Array.isArray(val) && val.length === 0))
+      if (val === undefined || val === null || val === "" || (Array.isArray(val) && val.length === 0)) {
         newErrors[q.id] = true;
+      }
     });
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -343,163 +297,52 @@ function App() {
 
   const handleSubmit = () => {
     if (!validate()) { showToast("请完成所有必填题目"); return; }
-    const responses = readResponses();
-    responses.push({ id: Date.now().toString(36)+Math.random().toString(36).slice(2,6), timestamp: new Date().toISOString(), answers });
-    localStorage.setItem(K_RESPONSES, JSON.stringify(responses));
+    const submission = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      timestamp: new Date().toISOString(),
+      answers
+    };
+    const existing = readResponses();
+    existing.push(submission);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
     setView("success");
   };
 
-  // ── Password check ──
-  const checkPassword = (pw) => {
-    const stored = localStorage.getItem(K_ADMIN_PW);
-    if (!stored) return true; // no password set yet
-    return sha256(pw + "survey_salt") === stored;
+  const readResponses = () => {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+    catch (_) { return []; }
   };
 
-  const handleEnterAdmin = () => {
-    const hasPw = localStorage.getItem(K_ADMIN_PW_SET);
-    if (!hasPw) {
-      setPwModal("set"); setPwInput(""); setPwError(""); return;
-    }
-    if (editingConfig) { setView("admin"); return; }
-    setPwModal("verify"); setPwInput(""); setPwError("");
-  };
-
-  const handlePwSubmit = () => {
-    const pw = pwInput.trim();
-    if (!pw || pw.length < 3) { setPwError("密码至少3位"); return; }
-    if (pwModal === "set") {
-      localStorage.setItem(K_ADMIN_PW, sha256(pw + "survey_salt"));
-      localStorage.setItem(K_ADMIN_PW_SET, "1");
-      setPwModal(""); setPwInput(""); setAuthChecked(true);
-      setEditingConfig(JSON.parse(JSON.stringify(config)));
-      setView("admin");
-    } else {
-      if (checkPassword(pw)) {
-        setPwModal(""); setPwInput(""); setAuthChecked(true);
-        setEditingConfig(JSON.parse(JSON.stringify(config)));
-        setView("admin");
-      } else {
-        setPwError("密码错误");
-      }
-    }
-  };
-
-  // ── Admin: question ops ──
-  const adminAddQ = (type) => {
-    const newCfg = JSON.parse(JSON.stringify(editingConfig));
-    newCfg.questions.push(blankQuestion(type));
-    setEditingConfig(newCfg);
-    setExpandedQ(newCfg.questions.length - 1);
-  };
-
-  const adminDelQ = (idx) => {
-    if (!confirm("确定删除这道题目？")) return;
-    const newCfg = JSON.parse(JSON.stringify(editingConfig));
-    newCfg.questions.splice(idx, 1);
-    setEditingConfig(newCfg);
-    setExpandedQ(null);
-    localStorage.setItem(K_OVERRIDE, JSON.stringify(newCfg));
-  };
-
-  const adminMoveQ = (idx, dir) => {
-    const newIdx = idx + dir;
-    if (newIdx < 0 || newIdx >= editingConfig.questions.length) return;
-    const newCfg = JSON.parse(JSON.stringify(editingConfig));
-    [newCfg.questions[idx], newCfg.questions[newIdx]] = [newCfg.questions[newIdx], newCfg.questions[idx]];
-    setEditingConfig(newCfg);
-    if (expandedQ === idx) setExpandedQ(newIdx);
-    else if (expandedQ === newIdx) setExpandedQ(idx);
-  };
-
-  const adminUpdateQ = (idx, field, value) => {
-    const newCfg = JSON.parse(JSON.stringify(editingConfig));
-    newCfg.questions[idx][field] = value;
-    if (field === "type") {
-      const q = newCfg.questions[idx];
-      if (TYPES_WITH_OPTIONS.includes(value) && !q.options) q.options = [""];
-      if (!TYPES_WITH_OPTIONS.includes(value)) delete q.options;
-      if (value === "rating" && !q.max) q.max = 5;
-      if (value !== "rating") delete q.max;
-      if (value === "text" || value === "textarea") { if (!q.placeholder) q.placeholder = ""; }
-      else delete q.placeholder;
-    }
-    setEditingConfig(newCfg);
-  };
-
-  const adminUpdateOpt = (qIdx, optIdx, value) => {
-    const newCfg = JSON.parse(JSON.stringify(editingConfig));
-    newCfg.questions[qIdx].options[optIdx] = value;
-    setEditingConfig(newCfg);
-  };
-
-  const adminAddOpt = (qIdx) => {
-    const newCfg = JSON.parse(JSON.stringify(editingConfig));
-    newCfg.questions[qIdx].options.push("");
-    setEditingConfig(newCfg);
-  };
-
-  const adminDelOpt = (qIdx, optIdx) => {
-    const newCfg = JSON.parse(JSON.stringify(editingConfig));
-    newCfg.questions[qIdx].options.splice(optIdx, 1);
-    setEditingConfig(newCfg);
-  };
-
-  const adminSaveToLocal = () => {
-    localStorage.setItem(K_OVERRIDE, JSON.stringify(editingConfig));
-    setConfig(editingConfig);
-    showToast("配置已保存到本地，可预览");
-  };
-
-  const adminCopyJSON = () => {
-    const clean = JSON.parse(JSON.stringify(editingConfig));
-    navigator.clipboard.writeText(JSON.stringify(clean, null, 2)).then(
-      () => showToast("配置 JSON 已复制到剪贴板！请粘贴到 config.json 并提交"),
-      () => showToast("复制失败，请手动选择 JSON 文本复制")
-    );
-  };
-
-  const adminPreview = () => {
-    localStorage.setItem(K_OVERRIDE, JSON.stringify(editingConfig));
-    setConfig(editingConfig);
-    setView("form");
-    showToast("正在预览修改后的问卷（仅本浏览器可见）");
-  };
-
-  const adminExit = () => {
-    const override = localStorage.getItem(K_OVERRIDE);
-    if (override) setConfig(JSON.parse(override));
-    setView("form");
-    setEditingConfig(null);
-  };
-
-  // ── Export CSV ──
   const handleExportCSV = () => {
     const responses = readResponses();
-    if (!responses.length) { showToast("暂无数据可导出"); return; }
-    const ids = questions.map(q => q.id);
-    const titles = questions.map(q => q.title);
-    let csv = "﻿" + ["提交时间", ...titles].map(v => `"${v}"`).join(",") + "\n";
+    if (responses.length === 0) { showToast("暂无数据可导出"); return; }
+    const qIds = SURVEY_CONFIG.questions.map(q => q.id);
+    const qTitles = SURVEY_CONFIG.questions.map(q => q.title);
+    let csv = "﻿" + ["提交时间", ...qTitles].map(v => `"${v}"`).join(",") + "\n";
     responses.forEach(r => {
-      const row = [r.timestamp, ...ids.map(id => {
-        const v = r.answers[id]; return Array.isArray(v) ? v.join(" / ") : (v ?? "");
+      const row = [r.timestamp, ...qIds.map(id => {
+        const v = r.answers[id];
+        if (Array.isArray(v)) return v.join(" / ");
+        return v ?? "";
       })];
       csv += row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",") + "\n";
     });
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = `survey_${new Date().toISOString().slice(0,10)}.csv`;
-    a.click(); URL.revokeObjectURL(url); showToast("导出成功");
+    a.href = url; a.download = `survey_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast("导出成功");
   };
 
   const handleClearData = () => {
     if (confirm("确定要删除所有问卷数据吗？此操作不可恢复。")) {
-      localStorage.removeItem(K_RESPONSES); setDataVersion(v => v + 1); showToast("数据已清除");
+      localStorage.removeItem(STORAGE_KEY);
+      setDataVersion(v => v + 1);
+      showToast("数据已清除");
     }
   };
-
-  // ═══════════════════════ RENDER ═══════════════════════
 
   const bars = (counts) => {
     const maxCount = Math.max(1, ...Object.values(counts));
@@ -507,230 +350,170 @@ function App() {
       e("div", { className: "result-bar-wrap", key: label },
         e("div", { className: "result-bar-label" }, label),
         e("div", { className: "result-bar-track" },
-          e("div", { className: "result-bar-fill", style: { width: `${(count/maxCount)*100}%` } }, count > 0 ? count : null)
+          e("div", { className: "result-bar-fill", style: { width: `${(count / maxCount) * 100}%` } },
+            count > 0 ? count : null
+          )
         )
       )
     );
   };
 
-  // ── View: Form ──
   const renderForm = () => e("div", null,
     e("div", { className: "header" },
-      e("h1", null, activeConfig.title),
-      e("p", null, activeConfig.description)
+      e("h1", null, SURVEY_CONFIG.title),
+      e("p", null, SURVEY_CONFIG.description)
     ),
-    questions.map((q, idx) => e("div", { className: "card", key: q.id },
+    SURVEY_CONFIG.questions.map((q, idx) => e("div", { className: "card", key: q.id },
       e("div", { className: "q-title" },
         e("span", { className: "q-number" }, idx + 1),
         e("span", null, q.title, q.required ? e("span", { className: "required-star" }, " *") : null)
       ),
+
       q.type === "radio" ? e("div", { className: "options" },
-        (q.options||[]).map(opt => e("label", { className: "option"+(answers[q.id]===opt?" checked":""), key: opt, onClick:()=>updateAnswer(q.id,opt) },
-          e("input", { type:"radio",name:q.id,value:opt,checked:answers[q.id]===opt,onChange:()=>updateAnswer(q.id,opt) }), opt
+        q.options.map(opt => e("label", { className: "option" + (answers[q.id] === opt ? " checked" : ""), key: opt, onClick: () => updateAnswer(q.id, opt) },
+          e("input", { type: "radio", name: q.id, value: opt, checked: answers[q.id] === opt, onChange: () => updateAnswer(q.id, opt) }),
+          opt
         ))
       ) : null,
+
       q.type === "checkbox" ? e("div", { className: "options" },
-        (q.options||[]).map(opt => {
-          const checked = (answers[q.id]||[]).includes(opt);
-          return e("label", { className: "option"+(checked?" checked":""), key: opt, onClick:()=>{const p=answers[q.id]||[];updateAnswer(q.id,checked?p.filter(v=>v!==opt):[...p,opt])} },
-            e("input", { type:"checkbox", value:opt, checked, onChange:()=>{} }), opt
+        q.options.map(opt => {
+          const checked = (answers[q.id] || []).includes(opt);
+          return e("label", { className: "option" + (checked ? " checked" : ""), key: opt, onClick: () => {
+            const prev = answers[q.id] || [];
+            updateAnswer(q.id, checked ? prev.filter(v => v !== opt) : [...prev, opt]);
+          }},
+            e("input", { type: "checkbox", value: opt, checked, onChange: () => {} }),
+            opt
           );
         })
       ) : null,
-      q.type === "select" ? e("select", { className:"select-input", value:answers[q.id]||"", onChange:ev=>updateAnswer(q.id,ev.target.value) },
-        e("option", { value:"", disabled:true }, "请选择..."),
-        (q.options||[]).map(opt => e("option", { key:opt, value:opt }, opt))
+
+      q.type === "select" ? e("select", {
+        className: "select-input",
+        value: answers[q.id] || "",
+        onChange: ev => updateAnswer(q.id, ev.target.value)
+      },
+        e("option", { value: "", disabled: true }, "请选择..."),
+        q.options.map(opt => e("option", { key: opt, value: opt }, opt))
       ) : null,
-      q.type === "text" ? e("input", { className:"text-input", type:"text", placeholder:q.placeholder||"", value:answers[q.id]||"", onChange:ev=>updateAnswer(q.id,ev.target.value) }) : null,
-      q.type === "textarea" ? e("textarea", { className:"textarea-input", placeholder:q.placeholder||"", value:answers[q.id]||"", onChange:ev=>updateAnswer(q.id,ev.target.value) }) : null,
-      q.type === "rating" ? e("div", { className:"rating" },
-        Array.from({length:q.max||5},(_,i)=>i+1).map(n=>e("button",{className:"rating-btn"+(answers[q.id]===n?" active":""),key:n,onClick:()=>updateAnswer(q.id,n),type:"button"},n))
+
+      q.type === "text" ? e("input", {
+        className: "text-input", type: "text",
+        placeholder: q.placeholder || "",
+        value: answers[q.id] || "",
+        onChange: ev => updateAnswer(q.id, ev.target.value)
+      }) : null,
+
+      q.type === "textarea" ? e("textarea", {
+        className: "textarea-input",
+        placeholder: q.placeholder || "",
+        value: answers[q.id] || "",
+        onChange: ev => updateAnswer(q.id, ev.target.value)
+      }) : null,
+
+      q.type === "rating" ? e("div", { className: "rating" },
+        Array.from({ length: q.max || 5 }, (_, i) => i + 1).map(n =>
+          e("button", {
+            className: "rating-btn" + (answers[q.id] === n ? " active" : ""),
+            key: n,
+            onClick: () => updateAnswer(q.id, n),
+            type: "button"
+          }, n)
+        )
       ) : null,
-      e("div", { className: "q-error"+(errors[q.id]?" show":"") }, "此题必填")
+
+      e("div", { className: "q-error" + (errors[q.id] ? " show" : "") }, "此题必填")
     )),
-    e("button", { className:"btn btn-primary", onClick:handleSubmit }, "提交问卷"),
-    e("div", { className:"admin-toggle" },
-      e("a", { onClick:()=>setView("results") }, "查看统计结果"),
-      e("a", { onClick:handleEnterAdmin, style:{marginLeft:16} }, "管理")
+    e("button", { className: "btn btn-primary", onClick: handleSubmit }, "提交问卷"),
+    e("div", { className: "admin-toggle" },
+      e("a", { onClick: () => setView("results") }, "查看统计结果")
     )
   );
 
-  // ── View: Success ──
   const renderSuccess = () => e("div", null,
-    e("div", { className:"header" },
-      e("div", { className:"success-icon" }, "✓"),
+    e("div", { className: "header" },
+      e("div", { className: "success-icon" }, "✓"),
       e("h1", null, "提交成功"),
       e("p", null, "感谢您的参与！您的回答已保存。")
     ),
-    e("div", { className:"btn-group", style:{justifyContent:"center"} },
-      e("button", { className:"btn btn-outline", onClick:()=>{setAnswers({});setErrors({});setView("form");} }, "再填一份"),
-      e("button", { className:"btn btn-outline", onClick:()=>setView("results") }, "查看统计结果")
+    e("div", { className: "btn-group", style: { justifyContent: "center" } },
+      e("button", { className: "btn btn-outline", onClick: () => { setAnswers({}); setErrors({}); setView("form"); } }, "再填一份"),
+      e("button", { className: "btn btn-outline", onClick: () => setView("results") }, "查看统计结果")
     )
   );
 
-  // ── View: Results ──
   const renderResults = () => {
     const responses = readResponses();
     const total = responses.length;
-    const questionStats = total === 0 ? null : questions.map(q => {
+
+    const questionStats = total === 0 ? null : SURVEY_CONFIG.questions.map(q => {
       const vals = responses.map(r => r.answers[q.id]).filter(v => v !== undefined && v !== null && v !== "" && !(Array.isArray(v) && v.length === 0));
       let content;
-      if (["radio","select"].includes(q.type)) {
-        const counts = {}; (q.options||[]).forEach(o=>{counts[o]=0}); vals.forEach(v=>{if(counts[v]!==undefined)counts[v]++;});
+
+      if (["radio", "select"].includes(q.type)) {
+        const counts = {};
+        (q.options || []).forEach(o => { counts[o] = 0; });
+        vals.forEach(v => { if (counts[v] !== undefined) counts[v]++; });
         content = bars(counts);
       } else if (q.type === "checkbox") {
-        const counts = {}; (q.options||[]).forEach(o=>{counts[o]=0}); vals.forEach(arr=>{if(Array.isArray(arr))arr.forEach(v=>{if(counts[v]!==undefined)counts[v]++;});});
+        const counts = {};
+        (q.options || []).forEach(o => { counts[o] = 0; });
+        vals.forEach(arr => { if (Array.isArray(arr)) arr.forEach(v => { if (counts[v] !== undefined) counts[v]++; }); });
         content = bars(counts);
       } else if (q.type === "rating") {
-        const counts = {}; for(let i=1;i<=(q.max||5);i++)counts[i]=0; vals.forEach(v=>{if(counts[v]!==undefined)counts[v]++;});
-        const avg = vals.length>0?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):"0";
-        content = e("div",null,
-          e("div",{className:"stat-card",style:{marginBottom:12}},e("div",{className:"stat-num"},avg),e("div",{className:"stat-label"},"平均分")),
+        const counts = {};
+        for (let i = 1; i <= (q.max || 5); i++) counts[i] = 0;
+        vals.forEach(v => { if (counts[v] !== undefined) counts[v]++; });
+        const avg = vals.length > 0 ? (vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1) : "0";
+        content = e("div", null,
+          e("div", { className: "stat-card", style: { marginBottom: 12 } },
+            e("div", { className: "stat-num" }, avg),
+            e("div", { className: "stat-label" }, "平均分")
+          ),
           bars(counts)
         );
       } else {
-        content = e("div",{className:"result-text-list"},
-          vals.length===0?e("div",{style:{color:"var(--text-secondary)",fontSize:14}},"暂无回答"):vals.map((v,i)=>e("div",{className:"result-text-item",key:i},String(v)))
+        content = e("div", { className: "result-text-list" },
+          vals.length === 0
+            ? e("div", { style: { color: "var(--text-secondary)", fontSize: 14 } }, "暂无回答")
+            : vals.map((v, i) => e("div", { className: "result-text-item", key: i }, String(v)))
         );
       }
-      return e("div",{className:"card result-q",key:q.id},e("h4",null,q.title),content);
+
+      return e("div", { className: "card result-q", key: q.id },
+        e("h4", null, q.title),
+        content
+      );
     });
 
-    return e("div",null,
-      e("div",{className:"header"},e("h1",null,"统计结果"),e("p",null,`共 ${total} 份提交`)),
-      e("div",{className:"stats-grid"},e("div",{className:"stat-card"},e("div",{className:"stat-num"},total),e("div",{className:"stat-label"},"总提交数"))),
-      total===0?e("div",{className:"card",style:{textAlign:"center",color:"var(--text-secondary)",padding:"40px"}},"暂无数据，请先提交问卷"):questionStats,
-      e("div",{className:"btn-group",style:{justifyContent:"center"}},
-        e("button",{className:"btn btn-outline",onClick:()=>{setAnswers({});setErrors({});setView("form");}},"返回问卷"),
-        e("button",{className:"btn btn-outline",onClick:handleExportCSV,disabled:total===0},"导出 CSV"),
-        e("button",{className:"btn btn-outline",onClick:handleClearData,disabled:total===0,style:total>0?{color:"var(--danger)",borderColor:"var(--danger)"}:{}},"清除数据")
-      )
-    );
-  };
-
-  // ── View: Admin ──
-  const renderAdmin = () => {
-    if (!editingConfig) return null;
-    const ec = editingConfig;
-    return e("div",null,
-      e("div",{className:"admin-header"},
-        e("h2",null,"问卷管理"),
-        e("span",{style:{fontSize:13,color:"var(--text-secondary)"}},"编辑后请导出并提交到 GitHub")
+    return e("div", null,
+      e("div", { className: "header" },
+        e("h1", null, "统计结果"),
+        e("p", null, `共 ${total} 份提交`)
       ),
-
-      // Title & Description
-      e("div",{className:"field-group"},
-        e("label",null,"问卷标题"),
-        e("input",{className:"text-input",value:ec.title,onChange:ev=>{const n=JSON.parse(JSON.stringify(editingConfig));n.title=ev.target.value;setEditingConfig(n);}})
-      ),
-      e("div",{className:"field-group"},
-        e("label",null,"问卷描述"),
-        e("input",{className:"text-input",value:ec.description,onChange:ev=>{const n=JSON.parse(JSON.stringify(editingConfig));n.description=ev.target.value;setEditingConfig(n);}})
-      ),
-
-      // Questions
-      e("div",{className:"field-group"},e("label",null,`题目列表 (${ec.questions.length} 题)`)),
-      ec.questions.map((q, idx) => {
-        const expanded = expandedQ === idx;
-        const typeLabel = Q_TYPES.find(t=>t.value===q.type)?.label || q.type;
-        return e("div",{className:"q-item",key:q.id},
-          e("div",{className:"q-item-header"},
-            e("span",{className:"q-badge"},typeLabel),
-            e("span",{className:"q-text",style:{color:q.title?"inherit":"var(--text-secondary)"}},q.title||"(未命名题目)"),
-            e("div",{className:"q-actions"},
-              e("button",{className:"btn btn-outline btn-xs",title:"上移",onClick:()=>adminMoveQ(idx,-1),disabled:idx===0},"↑"),
-              e("button",{className:"btn btn-outline btn-xs",title:"下移",onClick:()=>adminMoveQ(idx,1),disabled:idx===ec.questions.length-1},"↓"),
-              e("button",{className:"btn btn-outline btn-xs",title:expanded?"折叠":"编辑",onClick:()=>setExpandedQ(expanded?null:idx)},expanded?"收起":"编辑"),
-            )
-          ),
-          expanded ? e("div",{className:"q-edit-panel"},
-            // Type
-            e("div",{className:"inline-row"},
-              e("span",{style:{fontSize:14,fontWeight:600,width:50}},"类型"),
-              e("select",{value:q.type,onChange:ev=>adminUpdateQ(idx,"type",ev.target.value)},
-                Q_TYPES.map(t=>e("option",{key:t.value,value:t.value},t.label))
-              )
-            ),
-            // Title
-            e("div",{className:"inline-row"},
-              e("span",{style:{fontSize:14,fontWeight:600,width:50}},"标题"),
-              e("input",{style:{flex:1},value:q.title||"",onChange:ev=>adminUpdateQ(idx,"title",ev.target.value),placeholder:"题目文字"})
-            ),
-            // Required
-            e("div",{className:"inline-row"},
-              e("label",null,e("input",{type:"checkbox",checked:q.required||false,onChange:ev=>adminUpdateQ(idx,"required",ev.target.checked)})," 必填")
-            ),
-            // Rating max
-            q.type==="rating"?e("div",{className:"inline-row"},
-              e("span",{style:{fontSize:14,fontWeight:600,width:50}},"最大值"),
-              e("input",{type:"number",min:2,max:10,style:{width:60},value:q.max||5,onChange:ev=>adminUpdateQ(idx,"max",parseInt(ev.target.value)||5)})
-            ):null,
-            // Placeholder
-            (q.type==="text"||q.type==="textarea")?e("div",{className:"inline-row"},
-              e("span",{style:{fontSize:14,fontWeight:600,width:50}},"提示"),
-              e("input",{style:{flex:1},value:q.placeholder||"",onChange:ev=>adminUpdateQ(idx,"placeholder",ev.target.value),placeholder:"Placeholder 文字"})
-            ):null,
-            // Options
-            TYPES_WITH_OPTIONS.includes(q.type)?e("div",null,
-              e("div",{style:{fontSize:13,fontWeight:600,marginBottom:6}},"选项"),
-              (q.options||[]).map((opt,oi)=>e("div",{className:"opt-row",key:oi},
-                e("input",{value:opt,onChange:ev=>adminUpdateOpt(idx,oi,ev.target.value),placeholder:`选项 ${oi+1}`}),
-                e("button",{className:"btn btn-outline btn-xs",onClick:()=>adminDelOpt(idx,oi),disabled:(q.options||[]).length<=1,style:{color:"var(--danger)",borderColor:"var(--danger)"}},"✕")
-              )),
-              e("button",{className:"btn btn-outline btn-sm",onClick:()=>adminAddOpt(idx),style:{marginTop:4}},"+ 添加选项")
-            ):null,
-            // Delete question
-            e("div",{style:{marginTop:8,paddingTop:8,borderTop:"1px solid var(--border)"}},
-              e("button",{className:"btn btn-danger btn-sm",onClick:()=>adminDelQ(idx)},"删除此题")
-            )
-          ):null
-        );
-      }),
-
-      // Add question
-      e("div",{className:"add-q-card"},
-        e("div",{style:{fontSize:14,color:"var(--text-secondary)",marginBottom:8}},"添加新题目"),
-        e("div",null,
-          Q_TYPES.map(t=>e("button",{className:"btn btn-outline btn-sm",key:t.value,onClick:()=>adminAddQ(t.value),style:{margin:3}},t.label))
+      e("div", { className: "stats-grid" },
+        e("div", { className: "stat-card" },
+          e("div", { className: "stat-num" }, total),
+          e("div", { className: "stat-label" }, "总提交数")
         )
       ),
-
-      // Actions
-      e("div",{className:"btn-group",style:{justifyContent:"center",flexWrap:"wrap"}},
-        e("button",{className:"btn btn-outline",onClick:adminPreview},"预览问卷"),
-        e("button",{className:"btn btn-primary",onClick:adminCopyJSON,style:{width:"auto"}},"复制配置 JSON"),
-        e("button",{className:"btn btn-outline",onClick:adminSaveToLocal},"保存到本地"),
-        e("button",{className:"btn btn-outline",onClick:adminExit},"退出管理")
-      ),
-      e("div",{style:{textAlign:"center",marginTop:16,fontSize:12,color:"var(--text-secondary)"}},
-        "提示：点"复制配置 JSON"后，粘贴到 config.json，然后 git commit & push 即可生效"
+      total === 0
+        ? e("div", { className: "card", style: { textAlign: "center", color: "var(--text-secondary)", padding: "40px" } }, "暂无数据，请先提交问卷")
+        : questionStats,
+      e("div", { className: "btn-group", style: { justifyContent: "center" } },
+        e("button", { className: "btn btn-outline", onClick: () => { setAnswers({}); setErrors({}); setView("form"); } }, "返回问卷"),
+        e("button", { className: "btn btn-outline", onClick: handleExportCSV, disabled: total === 0 }, "导出 CSV"),
+        e("button", { className: "btn btn-outline", onClick: handleClearData, disabled: total === 0, style: total > 0 ? { color: "#ef4444", borderColor: "#ef4444" } : {} }, "清除数据")
       )
     );
   };
 
-  // ═══════════════════════ MAIN RENDER ═══════════════════════
-
-  if (loading) return e("div",{className:"container"},e("div",{style:{textAlign:"center",padding:"80px 0",color:"var(--text-secondary)"}},"加载中..."));
-
-  // Password modal
-  const modal = pwModal ? e("div",{className:"modal-overlay",onClick:ev=>{if(ev.target===ev.currentTarget){setPwModal("");setPwInput("");setPwError("");}}},
-    e("div",{className:"modal-box"},
-      e("h3",null,pwModal==="set"?"设置管理密码":"请输入管理密码"),
-      e("input",{type:"password",value:pwInput,onChange:ev=>setPwInput(ev.target.value),placeholder:"输入密码",autoFocus:true,
-        onKeyDown:ev=>{if(ev.key==="Enter")handlePwSubmit();}}),
-      pwError?e("div",{className:"modal-error"},pwError):null,
-      e("button",{className:"btn btn-primary",onClick:handlePwSubmit},pwModal==="set"?"设置密码":"确认"),
-      e("div",{className:"hint"},pwModal==="set"?"请牢记密码，忘记后无法恢复":"")
-    )
-  ) : null;
-
-  return e("div",{className:"container"},
-    e("div",{className:"toast"+(toastMsg?" show":"")},toastMsg),
-    view==="form"?renderForm():
-    view==="success"?renderSuccess():
-    view==="results"?renderResults():
-    view==="admin"?renderAdmin():null,
-    modal
+  return e("div", { className: "container" },
+    e("div", { className: "toast" + (toastMsg ? " show" : "") }, toastMsg),
+    view === "form" ? renderForm() :
+    view === "success" ? renderSuccess() :
+    renderResults()
   );
 }
 
