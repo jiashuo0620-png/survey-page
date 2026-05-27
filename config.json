@@ -1,0 +1,48 @@
+{
+  "title": "用户满意度调查",
+  "description": "感谢您使用我们的服务，请花几分钟填写以下问卷帮助我们改进",
+  "questions": [
+    {
+      "id": "satisfaction",
+      "type": "rating",
+      "title": "您对我们的服务整体满意度如何？",
+      "max": 5,
+      "required": true
+    },
+    {
+      "id": "usage_frequency",
+      "type": "radio",
+      "title": "您使用我们服务的频率是？",
+      "options": ["每天", "每周几次", "每周一次", "偶尔使用", "这是第一次"],
+      "required": true
+    },
+    {
+      "id": "favorite_features",
+      "type": "checkbox",
+      "title": "您最喜欢哪些功能？（可多选）",
+      "options": ["界面设计", "响应速度", "功能丰富度", "易用性", "客户支持", "价格合理"],
+      "required": false
+    },
+    {
+      "id": "referral",
+      "type": "radio",
+      "title": "您有多大可能向朋友推荐我们的服务？",
+      "options": ["一定会推荐", "可能会推荐", "不确定", "可能不会", "一定不会"],
+      "required": true
+    },
+    {
+      "id": "age_range",
+      "type": "select",
+      "title": "您的年龄段是？",
+      "options": ["18岁以下", "18-25岁", "26-35岁", "36-45岁", "46-55岁", "55岁以上"],
+      "required": true
+    },
+    {
+      "id": "improvement",
+      "type": "textarea",
+      "title": "您觉得我们最需要在哪些方面改进？",
+      "placeholder": "请留下您的宝贵建议...",
+      "required": false
+    }
+  ]
+}
