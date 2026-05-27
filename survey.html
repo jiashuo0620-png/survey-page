@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>问卷调查</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --bg: #f5f5f5;
+  --card: #fff;
+  --text: #1f2937;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* Header */
+.header { text-align: center; padding: 40px 20px 32px; }
+.header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.header p { color: var(--text-secondary); font-size: 16px; }
+
+/* Card */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 24px;
+  margin-bottom: 16px;
+}
+
+/* Question */
+.q-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.q-title .required-star { color: #ef4444; font-weight: 700; }
+.q-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px; height: 26px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Options (radio / checkbox labels) */
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  font-size: 15px;
+}
+.option:hover { border-color: var(--primary); background: #f8f7ff; }
+.option input[type="radio"], .option input[type="checkbox"] {
+  width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0; cursor: pointer;
+}
+.option.checked { border-color: var(--primary); background: #eef2ff; }
+
+/* Inputs */
+.text-input, .textarea-input, .select-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  transition: border-color .15s;
+  background: #fff;
+}
+.text-input:focus, .textarea-input:focus, .select-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+}
+.textarea-input { resize: vertical; min-height: 100px; }
+.select-input {
+  appearance: none;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* Rating */
+.rating { display: flex; gap: 8px; flex-wrap: wrap; }
+.rating-btn {
+  width: 44px; height: 44px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+.rating-btn:hover { border-color: var(--primary); }
+.rating-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+}
+.btn-primary { background: var(--primary); color: #fff; width: 100%; }
+.btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+.btn-primary:disabled { background: #a5b4fc; cursor: not-allowed; transform: none; }
+.btn-outline { background: #fff; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-outline:hover { background: #eef2ff; }
+.btn-outline:disabled { opacity: .5; cursor: not-allowed; background: #f9fafb; }
+.btn-group { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+/* Validation error */
+.q-error { color: #ef4444; font-size: 13px; margin-top: 6px; display: none; }
+.q-error.show { display: block; }
+
+/* Toast notification */
+.toast {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  background: #1f2937; color: #fff; padding: 12px 24px;
+  border-radius: 8px; font-size: 14px; z-index: 1000;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.toast.show { opacity: 1; }
+
+/* Success page */
+.success-icon {
+  width: 72px; height: 72px;
+  background: #ecfdf5; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 36px; color: #059669;
+}
+
+/* Results / Statistics */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: #f9fafb; border-radius: 8px; padding: 16px; text-align: center; }
+.stat-card .stat-num { font-size: 28px; font-weight: 700; color: var(--primary); }
+.stat-card .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+.result-q { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.result-q:last-child { border-bottom: none; }
+.result-q h4 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+.result-bar-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.result-bar-label { width: 100px; font-size: 14px; color: var(--text-secondary); text-align: right; flex-shrink: 0; }
+.result-bar-track { flex: 1; height: 26px; background: #f3f4f6; border-radius: 6px; overflow: hidden; position: relative; }
+.result-bar-fill { height: 100%; background: var(--primary); border-radius: 6px; transition: width .3s; display: flex; align-items: center; padding-left: 8px; font-size: 12px; color: #fff; font-weight: 600; min-width: fit-content; }
+
+.result-text-list { display: flex; flex-direction: column; gap: 8px; }
+.result-text-item { background: #f9fafb; padding: 10px 14px; border-radius: 6px; font-size: 14px; border-left: 3px solid var(--primary); white-space: pre-wrap; word-break: break-word; }
+
+/* Admin / footer */
+.admin-toggle { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px dashed var(--border); }
+.admin-toggle a { color: var(--text-secondary); font-size: 13px; text-decoration: none; cursor: pointer; }
+.admin-toggle a:hover { color: var(--primary); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header h1 { font-size: 22px; }
+  .card { padding: 20px 16px; }
+  .result-bar-label { width: 70px; font-size: 12px; }
+  .rating-btn { width: 38px; height: 38px; font-size: 14px; }
+  .stat-card .stat-num { font-size: 22px; }
+  .btn-group { flex-direction: column; }
+  .btn-group .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<!-- React from CDN -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════╗
+// ║           问卷配置 — 修改下面的对象即可编辑问卷               ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+const SURVEY_CONFIG = {
+  title: "用户满意度调查",
+  description: "感谢您使用我们的服务，请花几分钟填写以下问卷帮助我们改进",
+
+  questions: [
+    {
+      id: "satisfaction",
+      type: "rating",
+      title: "您对我们的服务整体满意度如何？",
+      max: 5,
+      required: true
+    },
+    {
+      id: "usage_frequency",
+      type: "radio",
+      title: "您使用我们服务的频率是？",
+      options: ["每天", "每周几次", "每周一次", "偶尔使用", "这是第一次"],
+      required: true
+    },
+    {
+      id: "favorite_features",
+      type: "checkbox",
+      title: "您最喜欢哪些功能？（可多选）",
+      options: ["界面设计", "响应速度", "功能丰富度", "易用性", "客户支持", "价格合理"],
+      required: false
+    },
+    {
+      id: "referral",
+      type: "radio",
+      title: "您有多大可能向朋友推荐我们的服务？",
+      options: ["一定会推荐", "可能会推荐", "不确定", "可能不会", "一定不会"],
+      required: true
+    },
+    {
+      id: "age_range",
+      type: "select",
+      title: "您的年龄段是？",
+      options: ["18岁以下", "18-25岁", "26-35岁", "36-45岁", "46-55岁", "55岁以上"],
+      required: true
+    },
+    {
+      id: "improvement",
+      type: "textarea",
+      title: "您觉得我们最需要在哪些方面改进？",
+      placeholder: "请留下您的宝贵建议...",
+      required: false
+    }
+  ]
+};
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║                  以下是代码逻辑，无需修改                      ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+const e = React.createElement;
+const STORAGE_KEY = "survey_responses";
+
+function App() {
+  const [view, setView] = React.useState("form");
+  const [answers, setAnswers] = React.useState({});
+  const [errors, setErrors] = React.useState({});
+  const [toastMsg, setToastMsg] = React.useState("");
+  const [dataVersion, setDataVersion] = React.useState(0); // triggers re-render after clear
+
+  const showToast = (msg) => { setToastMsg(msg); setTimeout(() => setToastMsg(""), 2500); };
+
+  const updateAnswer = (qId, value) => {
+    setAnswers(prev => ({ ...prev, [qId]: value }));
+    setErrors(prev => ({ ...prev, [qId]: false }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    SURVEY_CONFIG.questions.forEach(q => {
+      if (!q.required) return;
+      const val = answers[q.id];
+      if (val === undefined || val === null || val === "" || (Array.isArray(val) && val.length === 0)) {
+        newErrors[q.id] = true;
+      }
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (!validate()) { showToast("请完成所有必填题目"); return; }
+    const submission = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      timestamp: new Date().toISOString(),
+      answers
+    };
+    const existing = readResponses();
+    existing.push(submission);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+    setView("success");
+  };
+
+  const readResponses = () => {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+    catch (_) { return []; }
+  };
+
+  const handleExportCSV = () => {
+    const responses = readResponses();
+    if (responses.length === 0) { showToast("暂无数据可导出"); return; }
+    const qIds = SURVEY_CONFIG.questions.map(q => q.id);
+    const qTitles = SURVEY_CONFIG.questions.map(q => q.title);
+    let csv = "﻿" + ["提交时间", ...qTitles].map(v => `"${v}"`).join(",") + "\n";
+    responses.forEach(r => {
+      const row = [r.timestamp, ...qIds.map(id => {
+        const v = r.answers[id];
+        if (Array.isArray(v)) return v.join(" / ");
+        return v ?? "";
+      })];
+      csv += row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",") + "\n";
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = `survey_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast("导出成功");
+  };
+
+  const handleClearData = () => {
+    if (confirm("确定要删除所有问卷数据吗？此操作不可恢复。")) {
+      localStorage.removeItem(STORAGE_KEY);
+      setDataVersion(v => v + 1);
+      showToast("数据已清除");
+    }
+  };
+
+  // ── Render helpers ──
+
+  const bars = (counts) => {
+    const maxCount = Math.max(1, ...Object.values(counts));
+    return Object.entries(counts).map(([label, count]) =>
+      e("div", { className: "result-bar-wrap", key: label },
+        e("div", { className: "result-bar-label" }, label),
+        e("div", { className: "result-bar-track" },
+          e("div", { className: "result-bar-fill", style: { width: `${(count / maxCount) * 100}%` } },
+            count > 0 ? count : null
+          )
+        )
+      )
+    );
+  };
+
+  // ── View: Form ──
+
+  const renderForm = () => e("div", null,
+    e("div", { className: "header" },
+      e("h1", null, SURVEY_CONFIG.title),
+      e("p", null, SURVEY_CONFIG.description)
+    ),
+    SURVEY_CONFIG.questions.map((q, idx) => e("div", { className: "card", key: q.id },
+      e("div", { className: "q-title" },
+        e("span", { className: "q-number" }, idx + 1),
+        e("span", null, q.title, q.required ? e("span", { className: "required-star" }, " *") : null)
+      ),
+
+      // Radio
+      q.type === "radio" ? e("div", { className: "options" },
+        q.options.map(opt => e("label", { className: "option" + (answers[q.id] === opt ? " checked" : ""), key: opt, onClick: () => updateAnswer(q.id, opt) },
+          e("input", { type: "radio", name: q.id, value: opt, checked: answers[q.id] === opt, onChange: () => updateAnswer(q.id, opt) }),
+          opt
+        ))
+      ) : null,
+
+      // Checkbox
+      q.type === "checkbox" ? e("div", { className: "options" },
+        q.options.map(opt => {
+          const checked = (answers[q.id] || []).includes(opt);
+          return e("label", { className: "option" + (checked ? " checked" : ""), key: opt, onClick: () => {
+            const prev = answers[q.id] || [];
+            updateAnswer(q.id, checked ? prev.filter(v => v !== opt) : [...prev, opt]);
+          }},
+            e("input", { type: "checkbox", value: opt, checked, onChange: () => {} }),
+            opt
+          );
+        })
+      ) : null,
+
+      // Select
+      q.type === "select" ? e("select", {
+        className: "select-input",
+        value: answers[q.id] || "",
+        onChange: ev => updateAnswer(q.id, ev.target.value)
+      },
+        e("option", { value: "", disabled: true }, "请选择..."),
+        q.options.map(opt => e("option", { key: opt, value: opt }, opt))
+      ) : null,
+
+      // Text
+      q.type === "text" ? e("input", {
+        className: "text-input", type: "text",
+        placeholder: q.placeholder || "",
+        value: answers[q.id] || "",
+        onChange: ev => updateAnswer(q.id, ev.target.value)
+      }) : null,
+
+      // Textarea
+      q.type === "textarea" ? e("textarea", {
+        className: "textarea-input",
+        placeholder: q.placeholder || "",
+        value: answers[q.id] || "",
+        onChange: ev => updateAnswer(q.id, ev.target.value)
+      }) : null,
+
+      // Rating
+      q.type === "rating" ? e("div", { className: "rating" },
+        Array.from({ length: q.max || 5 }, (_, i) => i + 1).map(n =>
+          e("button", {
+            className: "rating-btn" + (answers[q.id] === n ? " active" : ""),
+            key: n,
+            onClick: () => updateAnswer(q.id, n),
+            type: "button"
+          }, n)
+        )
+      ) : null,
+
+      // Error
+      e("div", { className: "q-error" + (errors[q.id] ? " show" : "") }, "此题必填")
+    )),
+    e("button", { className: "btn btn-primary", onClick: handleSubmit }, "提交问卷"),
+    e("div", { className: "admin-toggle" },
+      e("a", { onClick: () => setView("results") }, "查看统计结果")
+    )
+  );
+
+  // ── View: Success ──
+
+  const renderSuccess = () => e("div", null,
+    e("div", { className: "header" },
+      e("div", { className: "success-icon" }, "✓"),
+      e("h1", null, "提交成功"),
+      e("p", null, "感谢您的参与！您的回答已保存。")
+    ),
+    e("div", { className: "btn-group", style: { justifyContent: "center" } },
+      e("button", { className: "btn btn-outline", onClick: () => { setAnswers({}); setErrors({}); setView("form"); } }, "再填一份"),
+      e("button", { className: "btn btn-outline", onClick: () => setView("results") }, "查看统计结果")
+    )
+  );
+
+  // ── View: Results ──
+
+  const renderResults = () => {
+    const responses = readResponses();
+    const total = responses.length;
+
+    const questionStats = total === 0 ? null : SURVEY_CONFIG.questions.map(q => {
+      const vals = responses.map(r => r.answers[q.id]).filter(v => v !== undefined && v !== null && v !== "" && !(Array.isArray(v) && v.length === 0));
+
+      let content;
+
+      if (["radio", "select"].includes(q.type)) {
+        const counts = {};
+        (q.options || []).forEach(o => { counts[o] = 0; });
+        vals.forEach(v => { if (counts[v] !== undefined) counts[v]++; });
+        content = bars(counts);
+      } else if (q.type === "checkbox") {
+        const counts = {};
+        (q.options || []).forEach(o => { counts[o] = 0; });
+        vals.forEach(arr => { if (Array.isArray(arr)) arr.forEach(v => { if (counts[v] !== undefined) counts[v]++; }); });
+        content = bars(counts);
+      } else if (q.type === "rating") {
+        const counts = {};
+        for (let i = 1; i <= (q.max || 5); i++) counts[i] = 0;
+        vals.forEach(v => { if (counts[v] !== undefined) counts[v]++; });
+        const avg = vals.length > 0 ? (vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1) : "0";
+        content = e("div", null,
+          e("div", { className: "stat-card", style: { marginBottom: 12 } },
+            e("div", { className: "stat-num" }, avg),
+            e("div", { className: "stat-label" }, "平均分")
+          ),
+          bars(counts)
+        );
+      } else {
+        content = e("div", { className: "result-text-list" },
+          vals.length === 0
+            ? e("div", { style: { color: "var(--text-secondary)", fontSize: 14 } }, "暂无回答")
+            : vals.map((v, i) => e("div", { className: "result-text-item", key: i }, String(v)))
+        );
+      }
+
+      return e("div", { className: "card result-q", key: q.id },
+        e("h4", null, q.title),
+        content
+      );
+    });
+
+    return e("div", null,
+      e("div", { className: "header" },
+        e("h1", null, "统计结果"),
+        e("p", null, `共 ${total} 份提交`)
+      ),
+      e("div", { className: "stats-grid" },
+        e("div", { className: "stat-card" },
+          e("div", { className: "stat-num" }, total),
+          e("div", { className: "stat-label" }, "总提交数")
+        )
+      ),
+      total === 0
+        ? e("div", { className: "card", style: { textAlign: "center", color: "var(--text-secondary)", padding: "40px" } }, "暂无数据，请先提交问卷")
+        : questionStats,
+      e("div", { className: "btn-group", style: { justifyContent: "center" } },
+        e("button", { className: "btn btn-outline", onClick: () => { setAnswers({}); setErrors({}); setView("form"); } }, "返回问卷"),
+        e("button", { className: "btn btn-outline", onClick: handleExportCSV, disabled: total === 0 }, "导出 CSV"),
+        e("button", { className: "btn btn-outline", onClick: handleClearData, disabled: total === 0, style: total > 0 ? { color: "#ef4444", borderColor: "#ef4444" } : {} }, "清除数据")
+      )
+    );
+  };
+
+  return e("div", { className: "container" },
+    e("div", { className: "toast" + (toastMsg ? " show" : "") }, toastMsg),
+    view === "form" ? renderForm() :
+    view === "success" ? renderSuccess() :
+    renderResults()
+  );
+}
+
+// Mount
+ReactDOM.createRoot(document.getElementById("app")).render(e(App));
+</script>
+</body>
+</html>
