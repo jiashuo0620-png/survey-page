@@ -242,7 +242,7 @@ const SURVEY_CONFIG = {
       id: "age_range",
       type: "select",
       title: "您感觉周同学最突出的优点是？",
-      placeholder: "请留下您的宝贵建议...",
+      options: ["善良", "聪明", "幽默", "勤奋", "帅气"],
       required: true
     },
     {
@@ -370,14 +370,14 @@ function App() {
       ),
 
       q.type === "radio" ? e("div", { className: "options" },
-        q.options.map(opt => e("label", { className: "option" + (answers[q.id] === opt ? " checked" : ""), key: opt, onClick: () => updateAnswer(q.id, opt) },
+        (q.options||[]).map(opt => e("label", { className: "option" + (answers[q.id] === opt ? " checked" : ""), key: opt, onClick: () => updateAnswer(q.id, opt) },
           e("input", { type: "radio", name: q.id, value: opt, checked: answers[q.id] === opt, onChange: () => updateAnswer(q.id, opt) }),
           opt
         ))
       ) : null,
 
       q.type === "checkbox" ? e("div", { className: "options" },
-        q.options.map(opt => {
+        (q.options||[]).map(opt => {
           const checked = (answers[q.id] || []).includes(opt);
           return e("label", { className: "option" + (checked ? " checked" : ""), key: opt, onClick: () => {
             const prev = answers[q.id] || [];
@@ -395,7 +395,7 @@ function App() {
         onChange: ev => updateAnswer(q.id, ev.target.value)
       },
         e("option", { value: "", disabled: true }, "请选择..."),
-        q.options.map(opt => e("option", { key: opt, value: opt }, opt))
+        (q.options||[]).map(opt => e("option", { key: opt, value: opt }, opt))
       ) : null,
 
       q.type === "text" ? e("input", {
