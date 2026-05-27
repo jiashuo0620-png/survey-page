@@ -181,6 +181,26 @@ body {
 .admin-toggle a { color: var(--text-secondary); font-size: 13px; text-decoration: none; cursor: pointer; }
 .admin-toggle a:hover { color: var(--primary); }
 
+/* Password modal */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,.5); display: flex; align-items: center;
+  justify-content: center; z-index: 2000;
+}
+.modal-box {
+  background: #fff; border-radius: var(--radius); padding: 32px 28px;
+  width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,.2);
+  text-align: center;
+}
+.modal-box h3 { margin-bottom: 16px; font-size: 18px; }
+.modal-box input {
+  width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+  border-radius: 8px; font-size: 15px; margin-bottom: 12px; text-align: center;
+}
+.modal-box input:focus { outline: none; border-color: var(--primary); }
+.modal-box .modal-error { color: #ef4444; font-size: 13px; margin-bottom: 8px; }
+.modal-box .modal-hint { font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
+
 @media (max-width: 600px) {
   .header h1 { font-size: 22px; }
   .card { padding: 20px 16px; }
@@ -258,6 +278,12 @@ const SURVEY_CONFIG = {
 
 /* 以下是代码逻辑，无需修改 */
 
+function simpleHash(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) { h = ((h << 5) - h + s.charCodeAt(i)) | 0; }
+  return h.toString(36);
+}
+
 const e = React.createElement;
 const STORAGE_KEY = "survey_responses";
 
@@ -267,8 +293,34 @@ function App() {
   const [errors, setErrors] = React.useState({});
   const [toastMsg, setToastMsg] = React.useState("");
   const [dataVersion, setDataVersion] = React.useState(0);
+  const [pwModal, setPwModal] = React.useState("");
+  const [pwInput, setPwInput] = React.useState("");
+  const [pwError, setPwError] = React.useState("");
+  const [pwAuthed, setPwAuthed] = React.useState(false);
 
   const showToast = (msg) => { setToastMsg(msg); setTimeout(() => setToastMsg(""), 2500); };
+
+  const handleResultAuth = () => {
+    const stored = localStorage.getItem("survey_pw");
+    if (!stored) { setPwModal("set"); setPwInput(""); setPwError(""); return; }
+    if (pwAuthed) { setView("results"); return; }
+    setPwModal("verify"); setPwInput(""); setPwError("");
+  };
+
+  const handlePwSubmit = () => {
+    const pw = pwInput.trim();
+    if (!pw || pw.length < 3) { setPwError("密码至少3位"); return; }
+    if (pwModal === "set") {
+      localStorage.setItem("survey_pw", simpleHash(pw));
+      setPwModal(""); setPwAuthed(true); setView("results");
+    } else {
+      if (simpleHash(pw) === localStorage.getItem("survey_pw")) {
+        setPwModal(""); setPwAuthed(true); setView("results");
+      } else {
+        setPwError("密码错误");
+      }
+    }
+  };
 
   const updateAnswer = (qId, value) => {
     setAnswers(prev => ({ ...prev, [qId]: value }));
@@ -420,7 +472,7 @@ function App() {
     )),
     e("button", { className: "btn btn-primary", onClick: handleSubmit }, "提交问卷"),
     e("div", { className: "admin-toggle" },
-      e("a", { onClick: () => setView("results") }, "查看统计结果")
+      e("a", { onClick: handleResultAuth }, "查看统计结果")
     )
   );
 
@@ -432,7 +484,7 @@ function App() {
     ),
     e("div", { className: "btn-group", style: { justifyContent: "center" } },
       e("button", { className: "btn btn-outline", onClick: () => { setAnswers({}); setErrors({}); setView("form"); } }, "再填一份"),
-      e("button", { className: "btn btn-outline", onClick: () => setView("results") }, "查看统计结果")
+      e("button", { className: "btn btn-outline", onClick: handleResultAuth }, "查看统计结果")
     )
   );
 
@@ -502,11 +554,23 @@ function App() {
     );
   };
 
+  const modal = pwModal ? e("div", { className: "modal-overlay", onClick: ev => { if (ev.target === ev.currentTarget) { setPwModal(""); setPwInput(""); setPwError(""); } } },
+    e("div", { className: "modal-box" },
+      e("h3", null, pwModal === "set" ? "设置查看密码" : "请输入密码"),
+      e("input", { type: "password", value: pwInput, onChange: ev => setPwInput(ev.target.value), placeholder: "输入密码", autoFocus: true,
+        onKeyDown: ev => { if (ev.key === "Enter") handlePwSubmit(); } }),
+      pwError ? e("div", { className: "modal-error" }, pwError) : null,
+      e("button", { className: "btn btn-primary", onClick: handlePwSubmit }, pwModal === "set" ? "设置密码" : "确认"),
+      e("div", { className: "modal-hint" }, pwModal === "set" ? "设置后只有输入密码才能查看统计结果" : "")
+    )
+  ) : null;
+
   return e("div", { className: "container" },
     e("div", { className: "toast" + (toastMsg ? " show" : "") }, toastMsg),
     view === "form" ? renderForm() :
     view === "success" ? renderSuccess() :
-    renderResults()
+    renderResults(),
+    modal
   );
 }
 
